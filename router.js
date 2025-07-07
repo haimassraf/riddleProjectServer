@@ -1,6 +1,12 @@
+import { getAllObjects } from "./controllers/riddleController.js";
+
 export const router = {
     GET: {
-        '/': (req, res) => res.end(JSON.stringify({ "msg": "hello world" }))
+        '/riddles': async (req, res) => {
+            const data = await getAllObjects();
+            res.writeHead(200, {'Content-Type': 'application/json'});
+            res.end(JSON.stringify(data))
+        }
     },
     POST: {
         '/': (req, res) => {
