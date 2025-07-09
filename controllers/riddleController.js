@@ -19,7 +19,7 @@ export async function createRiddle(newData) {
 
     data.push(newData);
     setRiddle(JSON.stringify(data));
-    console.log(`new data: ${newData.name} insert succesfully.`);
+    console.log(`new data: ${newData.taskDescription} insert succesfully.`);
 }
 
 export async function readAllRiddles() {

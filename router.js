@@ -1,5 +1,5 @@
 import express from 'express'
-import { getAllObjects, getRiddlesByLevel, updateById } from './controllers/riddleController.js'
+import { getAllObjects, getRiddlesByLevel, updateById, createRiddle } from './controllers/riddleController.js'
 
 const router = express.Router()
 
@@ -23,7 +23,8 @@ router.put('/riddle/:id', async (req, res) => {
 
 router.post('/riddle', async (req, res) =>{
     const body = req.body;
-    
+    createRiddle(body);
+    res.json({msg: `riidle ${body.taskDescription} add succesfuly.`})
 })
 
 export default router;
