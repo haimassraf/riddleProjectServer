@@ -10,6 +10,7 @@ const __dirname = path.dirname(__filename);
 const riddlesJsonPath = path.join(__dirname, '..', 'DB', 'riddles.json');
 
 export async function getRiddle() {
+    console.log("Resolved path to riddles.json:", riddlesJsonPath);
     try {
         const file = await fs.readFile(riddlesJsonPath, 'utf8');
         return file;
