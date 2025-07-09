@@ -1,1 +1,165 @@
-[{"id":1,"name":"Easy Math","taskDescription":"What is 5 + 3?","correctAnswer":"8","difficulty":"easy","hint":"between 6 to 9","timeLimit":4},{"id":3,"name":"Easy Math","taskDescription":"What is 8 - 2?","correctAnswer":"6","difficulty":"easy","hint":"lower than 7","timeLimit":3},{"id":4,"name":"Quick Division","taskDescription":"What is 20 / 5?","correctAnswer":"4","difficulty":"medium","hint":"between 3 - 6"},{"id":5,"name":"Number Comparison","taskDescription":"Which is greater: 12 or 9?","correctAnswer":"12","difficulty":"easy"},{"id":6,"name":"Easy Math","taskDescription":"What is 8 - 2?","correctAnswer":"1","difficulty":"easy","hint":"lower than 7","timeLimit":3,"choices":["6","4","1","5"]},{"id":7,"name":"Basic Multiplication","taskDescription":"What is 8 x 3?","correctAnswer":"2","difficulty":"medium","choices":["22","24","21","26"]},{"id":8,"name":"Basic Multiplication","taskDescription":"What is 8 x 3 / 2?","correctAnswer":"4","difficulty":"hard","choices":["11","33","14","12"]},{"name":"Easy Math","taskDescription":"33 - 18 ?","correctAnswer":"2","difficulty":"medium","hint":"lower than 20","choices":["20","15","17","14"],"id":9},{"name":"Easy Math","taskDescription":"27 + 6 / 2 ?","correctAnswer":"30","difficulty":"hard","hint":"","id":11},{"name":"Basic Multiplay","taskDescription":"3 X 2 ?","choices":["6","4","5","3"],"correctAnswer":"1","difficulty":"easy","hint":"3 + 3","timeLimit":4,"id":12},{"name":"Shlomo Question","taskDescription":"3 + 4 ?","choices":["5","6","7","8"],"correctAnswer":"3","difficulty":"easy","hint":"","id":13},{"name":"hanan king","taskDescription":"5 + 6 ?","correctAnswer":"11","difficulty":"easy","hint":"","id":14},{"name":"Shlomo qustion","taskDescription":"19 - 4 / 2","correctAnswer":"17","difficulty":"medium","hint":"first '/' then '-'","id":15},{"name":"haim question","taskDescription":"1 + 1","correctAnswer":"2","difficulty":"easy","hint":"","id":16},{"name":"haim assraf","taskDescription":"2 + 2","correctAnswer":"4","difficulty":"easy","hint":"","id":17},{"name":"haim a","taskDescription":"4 - 3","correctAnswer":"1","difficulty":"easy","hint":"","id":18}]
+[
+    {
+        "id": 1,
+        "name": "Easy Math",
+        "taskDescription": "What is 5 + 3?",
+        "correctAnswer": "8",
+        "difficulty": "easy",
+        "hint": "between 6 to 9",
+        "timeLimit": 4
+    },
+    {
+        "id": 3,
+        "name": "Easy Math",
+        "taskDescription": "What is 8 - 2?",
+        "correctAnswer": "6",
+        "difficulty": "easy",
+        "hint": "lower than 7",
+        "timeLimit": 3
+    },
+    {
+        "id": 4,
+        "name": "Quick Division",
+        "taskDescription": "What is 20 / 5?",
+        "correctAnswer": "4",
+        "difficulty": "medium",
+        "hint": "between 3 - 6"
+    },
+    {
+        "id": 5,
+        "name": "Number Comparison",
+        "taskDescription": "Which is greater: 12 or 9?",
+        "correctAnswer": "12",
+        "difficulty": "easy"
+    },
+    {
+        "id": 6,
+        "name": "Easy Math",
+        "taskDescription": "What is 8 - 2?",
+        "correctAnswer": "1",
+        "difficulty": "easy",
+        "hint": "lower than 7",
+        "timeLimit": 3,
+        "choices": [
+            "6",
+            "4",
+            "1",
+            "5"
+        ]
+    },
+    {
+        "id": 7,
+        "name": "Basic Multiplication",
+        "taskDescription": "What is 8 x 3?",
+        "correctAnswer": "2",
+        "difficulty": "medium",
+        "choices": [
+            "22",
+            "24",
+            "21",
+            "26"
+        ]
+    },
+    {
+        "id": 8,
+        "name": "Basic Multiplication",
+        "taskDescription": "What is 8 x 3 / 2?",
+        "correctAnswer": "4",
+        "difficulty": "hard",
+        "choices": [
+            "11",
+            "33",
+            "14",
+            "12"
+        ]
+    },
+    {
+        "name": "Easy Math",
+        "taskDescription": "33 - 18 ?",
+        "correctAnswer": "2",
+        "difficulty": "medium",
+        "hint": "lower than 20",
+        "choices": [
+            "20",
+            "15",
+            "17",
+            "14"
+        ],
+        "id": 9
+    },
+    {
+        "name": "Easy Math",
+        "taskDescription": "27 + 6 / 2 ?",
+        "correctAnswer": "30",
+        "difficulty": "hard",
+        "hint": "",
+        "id": 11
+    },
+    {
+        "name": "Basic Multiplay",
+        "taskDescription": "3 X 2 ?",
+        "choices": [
+            "6",
+            "4",
+            "5",
+            "3"
+        ],
+        "correctAnswer": "1",
+        "difficulty": "easy",
+        "hint": "3 + 3",
+        "timeLimit": 4,
+        "id": 12
+    },
+    {
+        "name": "Shlomo Question",
+        "taskDescription": "3 + 4 ?",
+        "choices": [
+            "5",
+            "6",
+            "7",
+            "8"
+        ],
+        "correctAnswer": "3",
+        "difficulty": "easy",
+        "hint": "",
+        "id": 13
+    },
+    {
+        "name": "hanan king",
+        "taskDescription": "5 + 6 ?",
+        "correctAnswer": "11",
+        "difficulty": "easy",
+        "hint": "",
+        "id": 14
+    },
+    {
+        "name": "Shlomo qustion",
+        "taskDescription": "19 - 4 / 2",
+        "correctAnswer": "17",
+        "difficulty": "medium",
+        "hint": "first '/' then '-'",
+        "id": 15
+    },
+    {
+        "name": "haim question",
+        "taskDescription": "1 + 1",
+        "correctAnswer": "2",
+        "difficulty": "easy",
+        "hint": "",
+        "id": 16
+    },
+    {
+        "name": "shlomo q",
+        "taskDescription": "my name is ?",
+        "choices": [
+            "shlomo",
+            "haim",
+            "moshe",
+            "ari"
+        ],
+        "correctAnswer": "1",
+        "difficulty": "hard",
+        "hint": "",
+        "id": 18
+    }
+]

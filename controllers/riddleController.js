@@ -46,7 +46,7 @@ export async function updateById(id, newData) {
 
     if (i === -1) {
         console.log(`Error: Id ${id} not found`);
-        return;
+        return false;
     }
 
     data[i].name = newData.name || data[i].name;
@@ -59,6 +59,7 @@ export async function updateById(id, newData) {
 
     setRiddle(JSON.stringify(data));
     console.log(`Object with id ${id} updated successfully.`);
+    return true;
 }
 
 export async function deleteById(id) {
@@ -67,10 +68,11 @@ export async function deleteById(id) {
 
     if (i === -1) {
         console.log(`Error: Id ${id} not found`);
-        return;
+        return false;
     }
 
     data.splice(i, 1);
     setRiddle(JSON.stringify(data));
     console.log(`Object with id ${id} removed successfully.`);
+    return true;
 }
