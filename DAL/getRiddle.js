@@ -2,12 +2,12 @@ import { promises as fs } from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 
-// יצירת __dirname בסביבת ES Modules
+// הפיכת import.meta.url לנתיב קובץ
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
-// בניית נתיב מוחלט לקובץ riddles.json
-const riddlesJsonPath = path.resolve(__dirname, '../DB/riddles.json');
+// שימוש ב-path.join או path.resolve - עם '/' בלבד
+const riddlesJsonPath = path.join(__dirname, '..', 'DB', 'riddles.json');
 
 export async function getRiddle() {
     try {
