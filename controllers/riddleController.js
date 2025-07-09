@@ -1,13 +1,16 @@
 import { getRiddle, setRiddle } from '../DAL/getRiddle.js';
 
+export async function getAllRiddles() {
+    const allRiddles = await getRiddle();
+    return allRiddles;
+}
+
 export async function createRiddle(newData) {
     if (!newData.name || !newData.taskDescription || !newData.correctAnswer || !newData.difficulty) {
-        console.log("Error: new object has missing keys");
-        return;
+        return ("new object has missing keys");
     }
 
-    const file = await getRiddle();
-    const data = JSON.parse(file);
+    const data = await getRiddle();
 
     if (data.length === 0) {
         newData["id"] = 1;
@@ -19,34 +22,21 @@ export async function createRiddle(newData) {
 
     data.push(newData);
     setRiddle(JSON.stringify(data));
-    console.log(`new data: ${newData.taskDescription} insert succesfully.`);
-}
-
-export async function readAllRiddles() {
-    const file = await getRiddle();
-    const data = JSON.parse(file);
-    console.log("All Riddles:");
-    console.log(data);
-}
-
-export async function getAllObjects() {
-    const file = await getRiddle();
-    return JSON.parse(file);
+    return (`new data: ${newData.name} insert succesfully.`);
 }
 
 export async function getRiddlesByLevel(level) {
-    const data = await getAllObjects();
+    const data = await getRiddle();
     const allDataByLevel = data.filter((riddle) => riddle.difficulty === level);
     return allDataByLevel;
 }
 
 export async function updateById(id, newData) {
-    const data = await getAllObjects();
+    const data = await getRiddle();
     const i = data.findIndex(obj => obj.id === id);
 
     if (i === -1) {
-        console.log(`Error: Id ${id} not found`);
-        return false;
+        return (`Id ${id} not found`);
     }
 
     data[i].name = newData.name || data[i].name;
@@ -58,21 +48,18 @@ export async function updateById(id, newData) {
     data[i].timeLimit = newData.timeLimit || data[i].timeLimit;
 
     setRiddle(JSON.stringify(data));
-    console.log(`Object with id ${id} updated successfully.`);
-    return true;
+    return (`Object with id ${id} updated successfully.`);
 }
 
 export async function deleteById(id) {
-    const data = await getAllObjects();
+    const data = await getRiddle();
     const i = data.findIndex(obj => obj.id === id);
 
     if (i === -1) {
-        console.log(`Error: Id ${id} not found`);
-        return false;
+        return (`Id ${id} not found`);
     }
 
     data.splice(i, 1);
     setRiddle(JSON.stringify(data));
-    console.log(`Object with id ${id} removed successfully.`);
-    return true;
+    return (`Object with id ${id} removed successfully.`);
 }
