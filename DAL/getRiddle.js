@@ -1,5 +1,6 @@
 import { promises as fs } from 'node:fs';
-const riddlesJsonPath = "C:\\Users\\Studies\\kodcode\\kodCodeIdf\\RidderProject\\server\\DB\\riddles.json";
+// const riddlesJsonPath = "C:\\Users\\Studies\\kodcode\\kodCodeIdf\\RidderProject\\server\\DB\\riddles.json";
+const riddlesJsonPath = process.cwd()+ '\\DB\\riddles.json'
 
 export async function getRiddle() {
     try {
