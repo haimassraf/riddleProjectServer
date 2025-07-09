@@ -1,17 +1,17 @@
-import { getAllObjects } from "./controllers/riddleController.js";
+import express from 'express'
+import { getAllObjects, getRiddlesByLevel } from './controllers/riddleController.js'
 
-export const router = {
-    GET: {
-        '/riddles': async (req, res) => {
-            const data = await getAllObjects();
-            res.writeHead(200, {'Content-Type': 'application/json'});
-            res.end(JSON.stringify(data))
-        }
-    },
-    POST: {
-        '/': (req, res) => {
-            res.writeHead(201, "Succcess");
-            res.end(JSON.stringify(req.body))
-        }
-    }
-}
+const router = express.Router()
+
+router.get('/riddles', async (req, res) => {
+    const data = await getAllObjects();
+    res.json(data)
+})
+
+router.get('/riddleByLevel/:level', async (req, res) => {
+    const level = req.params.level;
+    const riddlesByLevel = await getRiddlesByLevel(level);
+    res.json(riddlesByLevel)
+})
+
+export default router;

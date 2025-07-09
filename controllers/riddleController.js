@@ -1,5 +1,3 @@
-import { Riddle } from '../../RidderProject/models/riddle.js';
-import { MultipleChoiceRiddle } from '../../RidderProject/models/MultipleChoiceRiddle.js';
 import { getRiddle, setRiddle } from '../DAL/getRiddle.js';
 
 export async function createRiddle(newData) {
@@ -39,21 +37,7 @@ export async function getAllObjects() {
 export async function getRiddlesByLevel(level) {
     const data = await getAllObjects();
     const allDataByLevel = data.filter((riddle) => riddle.difficulty === level);
-    const allRiddlesByLevel = [];
-    let id = 1;
-
-    for (const dataByLevel of allDataByLevel) {
-        if (dataByLevel.choices) {
-            const newRiddle = new MultipleChoiceRiddle(id, dataByLevel.name, dataByLevel.taskDescription, dataByLevel.correctAnswer, dataByLevel.difficulty, dataByLevel.choices, dataByLevel.hint, dataByLevel.timeLimit);
-            allRiddlesByLevel.push(newRiddle);
-        } else {
-            const newRiddle = new Riddle(id, dataByLevel.name, dataByLevel.taskDescription, dataByLevel.correctAnswer, dataByLevel.difficulty, dataByLevel.hint, dataByLevel.timeLimit);
-            allRiddlesByLevel.push(newRiddle);
-        }
-        id++;
-    }
-
-    return allRiddlesByLevel;
+    return allDataByLevel;
 }
 
 export async function updateById(id, newData) {
