@@ -1,20 +1,20 @@
 import express from 'express'
-import { getAllObjects, getRiddlesByLevel, updateById, createRiddle, deleteById } from './controllers/riddleController.js'
+import { getAllObjects, getRiddlesByLevel, updateById, createRiddle, deleteById } from '../controllers/riddleController.js'
 
-const router = express.Router()
+const riddleRouter = express.Router()
 
-router.get('/riddles', async (req, res) => {
+riddleRouter.get('/', async (req, res) => {
     const data = await getAllObjects();
     res.json(data)
 })
 
-router.get('/riddleByLevel/:level', async (req, res) => {
+riddleRouter.get('/riddleByLevel/:level', async (req, res) => {
     const level = req.params.level;
     const riddlesByLevel = await getRiddlesByLevel(level);
     res.json(riddlesByLevel)
 })
 
-router.put('/riddle/:id', async (req, res) => {
+riddleRouter.put('/:id', async (req, res) => {
     const body = req.body;
     const id = parseInt(req.params.id);
     const success = await updateById(id, body);
@@ -26,13 +26,13 @@ router.put('/riddle/:id', async (req, res) => {
     }
 })
 
-router.post('/riddle', async (req, res) => {
+riddleRouter.post('/', async (req, res) => {
     const body = req.body;
     createRiddle(body);
     res.json({ msg: `riidle '${body.taskDescription}' added succesfuly.` })
 })
 
-router.delete('/riddle/:id', async (req, res) => {
+riddleRouter.delete('/:id', async (req, res) => {
     const id = parseInt(req.params.id);
     const success = await deleteById(id);
    if (success) {
@@ -43,4 +43,4 @@ router.delete('/riddle/:id', async (req, res) => {
     }
 })
 
-export default router;
+export default riddleRouter;

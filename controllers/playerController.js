@@ -1,89 +1,77 @@
-import { promises as fs } from 'node:fs';
-
-const playersJsonPath = "C:\\Users\\Studies\\kodcode\\kodCodeIdf\\RidderProject\\server\\DB\\players.json";
+import { getPlayer, setPlayer } from "../DAL/getPlayer.js";
 
 export async function createPlayer(newPlayer) {
-    try {
-        if (!newPlayer.name) {
-            throw new Error("new player has no name")
-        }
-        const file = await fs.readFile(playersJsonPath, "utf8");
-        const data = JSON.parse(file);
-        const existsName = data.some(obj => obj.name === newPlayer.name);
-        if (existsName) {
-            throw new Error("The name already in used")
-        }
-        if (data.length === 0) {
-            newPlayer["id"] = 1;
-        } else {
-            const allId = data.map(el => el["id"]);
-            const highestId = Math.max(...allId);
-            newPlayer["id"] = highestId + 1;
-        }
-        data.push(newPlayer);
-        await fs.writeFile(playersJsonPath, JSON.stringify(data));
-        console.log(`new player: ${newPlayer.name}\ninsert succesfully.`);
-    } catch (err) {
-        console.log("Error:", err.message);
+    if (!newPlayer.name) {
+        return ("new player has no name");
+    }
+    const file = await getPlayer();
+    const data = JSON.parse(file);
+
+    const existsName = data.some(obj => obj.name === newPlayer.name);
+    if (existsName) {
+        return "The name already in use";
+    }
+
+    newPlayer.id = data.length === 0 ? 1 : Math.max(...data.map(el => el.id)) + 1;
+
+    const updatedData = [...data, newPlayer];
+    const success = await setPlayer(updatedData);
+
+    if (success) {
+        return (`new player: '${newPlayer.name}' inserted successfully.`);
     }
 }
 
 export async function read() {
-    try {
-        const file = await fs.readFile(playersJsonPath, "utf8");
-        const data = JSON.parse(file);
-        console.log("All players:");
-        console.log(data);
-    } catch (err) {
-        console.log("Error:", err.message);
-    }
+    const file = await getPlayer();
+    const data = JSON.parse(file);
+    console.log("All players:");
+    console.log(data);
 }
 
 export async function getAllPlayers() {
-    try {
-        const file = await fs.readFile(playersJsonPath, "utf8");
-        return JSON.parse(file);
-    } catch (err) {
-        console.log("Error: ", err.message);
-    }
+    const file = await getPlayer();
+    return JSON.parse(file);
 }
 
 export async function updateById(id, updatedPlayer) {
-    try {
-        const data = await getAllPlayers();
-        const i = data.findIndex(obj => obj.id === id);
+    const file = await getPlayer();
+    const data = JSON.parse(file);
 
-        const existsName = data.some(obj => obj.name === updatedPlayer.name);
-        if (existsName) {
-            throw new Error("The name already use")
-        }
-        if (i === -1) {
-            throw new Error(`Player with id ${id} not found`);
-        }
+    const index = data.findIndex(obj => obj.id === id);
+    if (index === -1) {
+        console.error(`Player with id ${id} not found`);
+    }
 
-        data[i].name = updatedPlayer.name ? updatedPlayer.name : data[i].name;
-        data[i].highestScore = updatedPlayer.highestScore ? updatedPlayer.highestScore : data[i].highestScore;
+    const nameInUse = data.some(
+        obj => obj.name === updatedPlayer.name && obj.id !== id
+    );
+    if (updatedPlayer.name && nameInUse) {
+        console.error("The name is already in use");
+    }
 
-        await fs.writeFile(playersJsonPath, JSON.stringify(data));
+    data[index].name = updatedPlayer.name || data[index].name;
+    data[index].highestScore = updatedPlayer.highestScore || data[index].highestScore;
+
+    const success = await setPlayer(data);
+    if (success) {
         console.log(`Player with id ${id} updated successfully.`);
-    } catch (err) {
-        console.log("Error: ", err.message);
     }
 }
 
 export async function deleteById(id) {
-    try {
-        const data = await getAllPlayers();
-        const i = data.findIndex(obj => obj.id === id);
+    const file = await getPlayer();
+    const data = JSON.parse(file);
 
-        if (i === -1) {
-            throw new Error(`Player with id ${id} not found`);
-        }
+    const index = data.findIndex(obj => obj.id === id);
+    if (index === -1) {
+        console.error(`Player with id ${id} not found`);
+    }
 
-        data.splice(i, 1);
-        await fs.writeFile(playersJsonPath, JSON.stringify(data));
+    data.splice(index, 1);
+
+    const success = await setPlayer(data);
+    if (success) {
         console.log(`Player with id ${id} removed successfully.`);
-    } catch (err) {
-        console.log("Error: ", err.message);
     }
 }
