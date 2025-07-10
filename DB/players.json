@@ -1,1 +1,30 @@
-[{"name":"haim","id":1,"highScore":9.5},{"name":"yaakov","id":2,"highScore":20},{"name":"shlomo","id":4,"highScore":20}]
+[
+  {
+    "name": "haim",
+    "id": 1,
+    "highScore": 9.5
+  },
+  {
+    "name": "yaakov",
+    "id": 2,
+    "highScore": 20
+  },
+  {
+    "name": "shlomo",
+    "id": 4,
+    "highScore": 20
+  },
+  {
+    "name": "aharon",
+    "id": 5,
+    "highScore": 9.5
+  },
+  {
+    "name": "haha",
+    "id": 6
+  },
+  {
+    "name": "sh",
+    "id": 7
+  }
+]

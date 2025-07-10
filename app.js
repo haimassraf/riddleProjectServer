@@ -1,5 +1,5 @@
 import express from 'express';
-import riddleRouter from './routers/riddeleRouter.js';
+import riddleRouter from './routers/riddleRouter.js';
 import playerRouter from './routers/playerRouter.js';
 
 const app = express();
