@@ -32,7 +32,7 @@ export async function createPlayer(newPlayer) {
     const success = await setAll('players', updatedData);
 
     if (success) {
-        return (`new player: '${newPlayer.name}' inserted successfully.`);
+        return (newPlayer);
     }
 }
 

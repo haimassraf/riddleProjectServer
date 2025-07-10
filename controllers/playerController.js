@@ -20,8 +20,8 @@ export async function updatePlayerByIdController(req, res) {
 
 export async function createPlayerController(req, res) {
     const body = req.body;
-    const msg = await playerService.createPlayer(body);
-    res.json({ message: msg });
+    const data = await playerService.createPlayer(body);
+    res.send(data);
 }
 
 export async function deletePlayerByIdController(req, res) {
