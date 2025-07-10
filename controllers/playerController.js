@@ -15,12 +15,14 @@ export async function updatePlayerByIdController(req, res) {
     const id = parseInt(req.params.id);
     const body = req.body;
     const msg = await playerService.updateById(id, body);
-    res.json({ message: msg });
+    res.send(msg);
 }
 
 export async function createPlayerController(req, res) {
     const body = req.body;
     const data = await playerService.createPlayer(body);
+    console.log(data);
+    
     res.send(data);
 }
 

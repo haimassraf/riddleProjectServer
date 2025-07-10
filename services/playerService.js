@@ -65,9 +65,9 @@ export async function updateById(id, updatedPlayer) {
     data[i].name = updatedPlayer.name || data[i].name;
     data[i].highScore = parseFloat(updatedPlayer.highScore) || data[i].highScore;
 
-    const success = await setAll('players', updatedData);
+    const success = await setAll('players', data);
     if (success) {
-        return (`Player with id ${id} updated successfully.`);
+        return data[i];
     }
 }
 
