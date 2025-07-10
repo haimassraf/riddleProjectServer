@@ -5,13 +5,13 @@ const riddleRouter = express.Router()
 
 riddleRouter.get('/', async (req, res) => {
     const data = await getAllRiddles();
-    res.json(data)
+    res.send(data)
 })
 
 riddleRouter.get('/riddleByLevel/:level', async (req, res) => {
     const level = req.params.level;
     const riddlesByLevel = await getRiddlesByLevel(level);
-    res.json(riddlesByLevel)
+    res.send(riddlesByLevel)
 })
 
 riddleRouter.put('/:id', async (req, res) => {

@@ -17,7 +17,9 @@ export async function getRiddle() {
 
 export async function setRiddle(newData) {
     try {
-        await fs.writeFile(riddlesJsonPath, newData);
+        const file = JSON.stringify(newData);
+        await fs.writeFile(riddlesJsonPath, file);
+        return true;
     } catch (err) {
         console.log('Error:', err.message);
     }

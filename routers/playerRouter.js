@@ -1,23 +1,24 @@
 import express from 'express'
-import { getAllPlayers, updateById, createPlayer, deleteById } from '../controllers/playerController.js'
+import { getAllPlayers, updateById, createPlayer, deleteById, getPlayerByName } from '../controllers/playerController.js'
 
 const playerRouter = express.Router()
 
+playerRouter.get('/:name', async (req, res) => {
+    const id = req.params.name;
+    const data = await getPlayerByName(id);
+    res.send(data);
+})
+
 playerRouter.get('/', async (req, res) => {
     const data = await getAllPlayers();
-    res.json(data)
+    res.send(data)
 })
 
 playerRouter.put('/:id', async (req, res) => {
     const body = req.body;
     const id = parseInt(req.params.id);
-    const success = await updateById(id, body);
-    if (success) {
-        res.json({ msg: `riddle with id: ${id} updated succesfuly` })
-    }
-    else {
-        res.json({ msg: `Error with update id: ${id}` })
-    }
+    const msg = await updateById(id, body);
+    res.json({ message: msg })
 })
 
 playerRouter.post('/', async (req, res) => {
@@ -28,13 +29,8 @@ playerRouter.post('/', async (req, res) => {
 
 playerRouter.delete('/:id', async (req, res) => {
     const id = parseInt(req.params.id);
-    const success = await deleteById(id);
-    if (success) {
-        res.json({ msg: `riddle with id: ${id} deleted succesfuly` })
-    }
-    else {
-        res.json({ msg: `Error with delete id: ${id}` })
-    }
+    const msg = await deleteById(id);
+    res.json({ message: msg })
 })
 
 export default playerRouter;

@@ -11,6 +11,9 @@ export async function createRiddle(newData) {
     }
 
     const data = await getRiddle();
+    if (!data){
+        return 'Faild to get data'
+    }
 
     if (data.length === 0) {
         newData["id"] = 1;
@@ -21,18 +24,26 @@ export async function createRiddle(newData) {
     }
 
     data.push(newData);
-    setRiddle(JSON.stringify(data));
-    return (`new data: ${newData.name} insert succesfully.`);
+    const success = await setRiddle(data);
+    if (success) {
+        return (`new data: ${newData.name} insert succesfully.`);
+    }
 }
 
 export async function getRiddlesByLevel(level) {
     const data = await getRiddle();
+    if (!data){
+        return 'Faild to get data';
+    }
     const allDataByLevel = data.filter((riddle) => riddle.difficulty === level);
     return allDataByLevel;
 }
 
 export async function updateById(id, newData) {
     const data = await getRiddle();
+    if (!data){
+        return 'Faild to get data';
+    }
     const i = data.findIndex(obj => obj.id === id);
 
     if (i === -1) {
@@ -47,12 +58,17 @@ export async function updateById(id, newData) {
     data[i].hint = newData.hint || data[i].hint;
     data[i].timeLimit = newData.timeLimit || data[i].timeLimit;
 
-    setRiddle(JSON.stringify(data));
-    return (`Object with id ${id} updated successfully.`);
+    const success = await setRiddle(data);
+    if (success) {
+        return (`Object with id ${id} updated successfully.`);
+    }
 }
 
 export async function deleteById(id) {
     const data = await getRiddle();
+    if (!data){
+        return 'Faild to get data';
+    }
     const i = data.findIndex(obj => obj.id === id);
 
     if (i === -1) {
@@ -60,6 +76,8 @@ export async function deleteById(id) {
     }
 
     data.splice(i, 1);
-    setRiddle(JSON.stringify(data));
-    return (`Object with id ${id} removed successfully.`);
+    const success = await setRiddle(data);
+    if (success) {
+        return (`Object with id ${id} removed successfully.`);
+    }
 }

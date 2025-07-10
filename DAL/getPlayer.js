@@ -9,7 +9,7 @@ const playersJsonPath = path.join(__dirname, '..', 'DB', 'players.json');
 export async function getPlayer() {
     try {
         const file = await fs.readFile(playersJsonPath, 'utf8');
-        return file;
+        return JSON.parse(file);
     } catch (err) {
         console.log('Error:', err.message);
     }
@@ -17,7 +17,8 @@ export async function getPlayer() {
 
 export async function setPlayer(newData) {
     try {
-        await fs.writeFile(playersJsonPath, newData);
+        const file = JSON.stringify(newData);
+        await fs.writeFile(playersJsonPath, file);
         return true;
     } catch (err) {
         console.log('Error:', err.message);
