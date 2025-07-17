@@ -1,33 +1,25 @@
-import { promises as fs } from 'node:fs';
-import path from 'node:path';
-import { fileURLToPath } from 'node:url';
+import "dotenv/config"
+import client, { connectToMongo } from "./lib/db.js"
+import { ObjectId } from "mongodb"
 
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
+await connectToMongo();
 
-function getDBPath(fileName) {
-    return path.join(__dirname, '..', 'server', 'DB', `${fileName}.json`);
-}
+const riddelsCollection = client.db('arava').collection('riddels');
 
-export async function getAll(fileName) {
+export async function getAll() {
     try {
-        const dbPath = getDBPath(fileName);
-        const file = await fs.readFile(dbPath, 'utf8');
-        return JSON.parse(file);
+        const res = await riddelsCollection.find().toArray();
+        return res;
     } catch (err) {
-        console.log('Error in getAll:', err.message);
-        return null;
+        console.log("Error: ", err.message)
     }
 }
 
-export async function setAll(fileName, newData) {
+export async function insertData(body) {
     try {
-        const dbPath = getDBPath(fileName);
-        const file = JSON.stringify(newData, null, 2);
-        await fs.writeFile(dbPath, file, 'utf8');
-        return true;
+        const res = await riddelsCollection.insertOne(body)
+        return res.insertedId;
     } catch (err) {
-        console.log('Error in setAll:', err.message);
-        return false;
+        console.log("Error with inserting data: ", err.message)
     }
 }

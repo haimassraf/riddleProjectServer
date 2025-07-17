@@ -22,7 +22,7 @@ export async function createPlayerController(req, res) {
     const body = req.body;
     const data = await playerService.createPlayer(body);
     console.log(data);
-    
+
     res.send(data);
 }
 

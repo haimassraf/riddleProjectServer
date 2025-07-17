@@ -1,4 +1,4 @@
-import { getAll, setAll } from "../DAL.js";
+import { getAll } from "../DAL.js";
 
 export async function getPlayerByName(name) {
     const data = await getAll('players');

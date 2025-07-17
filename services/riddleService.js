@@ -1,7 +1,7 @@
-import { getAll, setAll } from '../DAL.js';
+import { getAll, insertData } from '../DAL.js';
 
 export async function getAllRiddles() {
-    const allRiddles = await getAll('riddles');
+    const allRiddles = await getAll();
     return allRiddles;
 }
 
@@ -10,23 +10,9 @@ export async function createRiddle(newData) {
         return "new object has missing keys";
     }
 
-    const data = await getAll('riddles');
-    if (!data) {
-        return [];
-    }
-
-    if (data.length === 0) {
-        newData["id"] = 1;
-    } else {
-        const allId = data.map(el => el["id"]);
-        const highestId = Math.max(...allId);
-        newData["id"] = highestId + 1;
-    }
-
-    data.push(newData);
-    const success = await setAll('riddles', data);
-    if (success) {
-        return (`new data: '${newData.name}' insert succesfully.`);
+    const insertedId = await insertData(newData);
+    if (insertedId) {
+        return (`new data: '${newData.name}', id: '${insertedId}' insert succesfully.`);
     }
     return "Faild to create data"
 }
