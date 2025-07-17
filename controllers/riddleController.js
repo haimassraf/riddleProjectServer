@@ -12,7 +12,7 @@ export async function getRiddlesByLevelController(req, res) {
 }
 
 export async function updateRiddleByIdController(req, res) {
-    const id = parseInt(req.params.id);
+    const id = req.params.id;
     const body = req.body;
     const msg = await riddleService.updateById(id, body);
     res.json({ message: msg });
@@ -25,7 +25,17 @@ export async function createRiddleController(req, res) {
 }
 
 export async function deleteRiddleByIdController(req, res) {
-    const id = parseInt(req.params.id);
+    const id = req.params.id;
     const msg = await riddleService.deleteById(id);
     res.json({ message: msg });
+}
+
+export async function loadInitialRiddlesController(req, res) {
+    const body = req.body;
+    const totalMsg = []
+    for (const obj of body) {
+        const msg = await riddleService.createRiddle(obj);
+        totalMsg.push(msg);
+    }
+    res.send(totalMsg);
 }

@@ -1,4 +1,4 @@
-import { getAll } from "../DAL.js";
+import { getAll } from "../DAL/riddleDAL.js";
 
 export async function getPlayerByName(name) {
     const data = await getAll('players');
