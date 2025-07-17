@@ -1,5 +1,5 @@
 import "dotenv/config"
-import client, { connectToMongo } from "../lib/db.js"
+import client, { connectToMongo } from "../lib/mongodb.js"
 import { ObjectId } from "mongodb"
 
 
