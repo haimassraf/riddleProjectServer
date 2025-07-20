@@ -1,33 +1,34 @@
-import * as playerService from '../services/playerService.js';
+import { getAllPlayers, getPlayerByNameDal, createPlayerDal } from "../DAL/playerDAL.js";
 
 export async function getAllPlayersController(req, res) {
-    const data = await playerService.getAllPlayers();
-    res.send(data);
+    try {
+        const data = await getAllPlayers();
+        if (!data) return 'Faild to get data';
+        res.send(data);
+    } catch (err) {
+        res.send(`Error to get players: ${err.message}`)
+    }
 }
 
 export async function getPlayerByNameController(req, res) {
-    const name = req.params.name;
-    const data = await playerService.getPlayerByName(name);
-    res.send(data);
-}
-
-export async function updatePlayerByIdController(req, res) {
-    const id = parseInt(req.params.id);
-    const body = req.body;
-    const msg = await playerService.updateById(id, body);
-    res.send(msg);
+    try {
+        const name = req.params.name;
+        const data = await getPlayerByNameDal(name);
+        res.send(data);
+    } catch (err) {
+        res.send(`Error to get players by name: ${err.message}`)
+    }
 }
 
 export async function createPlayerController(req, res) {
-    const body = req.body;
-    const data = await playerService.createPlayer(body);
-    console.log(data);
-
-    res.send(data);
-}
-
-export async function deletePlayerByIdController(req, res) {
-    const id = parseInt(req.params.id);
-    const msg = await playerService.deleteById(id);
-    res.json({ message: msg });
+    try {
+        const body = req.body;
+        if (!body.name) {
+            throw new Error("new player has no name")
+        }
+        const data = await createPlayerDal(body);
+        res.send(data)
+    } catch (err) {
+        res.send(`Error to create player: ${err.message}`)
+    }
 }
