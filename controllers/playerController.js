@@ -1,4 +1,4 @@
-import { getAllPlayersDal, getPlayerByNameDal, createPlayerDal, updatePlayerDal} from "../DAL/playerDAL.js";
+import { getAllPlayersDal, getPlayerByNameDal, createPlayerDal, updatePlayerDal, deletePlayerDal } from "../DAL/playerDAL.js";
 
 export async function getPlayerByName(req, res) {
     try {
@@ -33,7 +33,12 @@ export async function createPlayer(req, res) {
             throw new Error("new player has no name")
         }
         const data = await createPlayerDal(body);
-        res.send(data[0])
+        if (data[0].id) {
+            res.send(data[0])
+        }
+        else {
+            res.send(data)
+        }
     } catch (err) {
         res.send(`Error to create player: ${err.message}`)
     }
@@ -44,8 +49,22 @@ export async function updatePlayer(req, res) {
         const body = req.body;
         const id = parseInt(req.params.id);
         const data = await updatePlayerDal(id, body);
-
+        if (data[0].id) {
+            res.send(data[0])
+        }else{
+            res.send(data)
+        }
     } catch (err) {
-        res.send("Error with update player: " + err.message)
+        res.send("Error with update player (id must be a number): " + err.message)
+    }
+}
+
+export async function deletePlayer(req, res) {
+    try{
+        const id = parseInt(req.params.id);
+        const data = await deletePlayerDal(id);
+        res.send(data);
+    }catch(err){
+        res.send("Error with delete player: " + err.message);
     }
 }

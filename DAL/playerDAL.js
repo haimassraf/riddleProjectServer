@@ -29,17 +29,28 @@ export async function createPlayerDal(newPlayer) {
         if (error) throw new Error(error.message)
         return data
     } catch (err) {
-        console.log("Error with create player: ", err.message)
+        return ("Error with create player: ", err.message)
     }
 }
 
 export async function updatePlayerDal(id, body) {
     try {
         const supabase = connectToSupabase();
-        const {data, error} = await supabase.from('players').update(body).eq('id', id).select();
+        const { data, error } = await supabase.from('players').update(body).eq('id', id).select();
         if (error) throw new Error(error.message);
         return data;
     } catch (err) {
         console.log("Error to update player: ", err.message)
+    }
+}
+
+export async function deletePlayerDal(id) {
+    try {
+        const supabase = connectToSupabase();
+        const { data, error } = await supabase.from('players').delete().eq('id', id).select();
+        if (error) throw new Error(error.message);
+        return data;
+    } catch (err) {
+        console.log("Error with delete players: ", err.message);
     }
 }

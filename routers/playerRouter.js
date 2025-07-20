@@ -7,5 +7,6 @@ playerRouter.get('/:name', PC.getPlayerByName);
 playerRouter.get('/', PC.getAllPlayers);
 playerRouter.post('/', PC.createPlayer);
 playerRouter.put('/:id', PC.updatePlayer);
+playerRouter.delete('/:id', PC.deletePlayer);
 
 export default playerRouter;
