@@ -1,6 +1,17 @@
 import { connectToSupabase } from "../lib/supabase.js";
 
-export async function getAllPlayers() {
+export async function getPlayerByNameDal(name) {
+    try {
+        const supabase = connectToSupabase();
+        const { data, error } = await supabase.from('players').select().eq('name', name);
+        if (error) throw new Error(error.message);
+        return data;
+    } catch (err) {
+        console.log("Error with get player by name: ", err.message)
+    }
+}
+
+export async function getAllPlayersDal() {
     try {
         const supabase = connectToSupabase();
         const { data, error } = await supabase.from('players').select();
@@ -11,16 +22,24 @@ export async function getAllPlayers() {
     }
 }
 
-export async function getPlayerByNameDal(name) {
-    const supabase = connectToSupabase();
-    const { data, error } = await supabase.from('players').select().eq('name', name);
-    if (error) throw new Error(error.message);
-    return data;
+export async function createPlayerDal(newPlayer) {
+    try {
+        const supabase = connectToSupabase();
+        const { data, error } = await supabase.from('players').insert({ name: newPlayer.name, high_score: newPlayer.highScore }).select();
+        if (error) throw new Error(error.message)
+        return data
+    } catch (err) {
+        console.log("Error with create player: ", err.message)
+    }
 }
 
-export async function createPlayerDal(newPlayer) {
-    const supabase = connectToSupabase();
-    const { data, error } = await supabase.from('players').insert({ name: newPlayer.name, highscore: newPlayer.highScore }).select();
-    if (error) throw new Error(error.message)
-    return data
+export async function updatePlayerDal(id, body) {
+    try {
+        const supabase = connectToSupabase();
+        const {data, error} = await supabase.from('players').update(body).eq('id', id).select();
+        if (error) throw new Error(error.message);
+        return data;
+    } catch (err) {
+        console.log("Error to update player: ", err.message)
+    }
 }

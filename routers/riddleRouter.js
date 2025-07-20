@@ -3,11 +3,11 @@ import * as RC from '../controllers/riddleController.js';
 
 const riddleRouter = express.Router();
 
-riddleRouter.get('/', RC.getAllRiddlesController);
-riddleRouter.get('/riddleByLevel/:level', RC.getRiddlesByLevelController);
-riddleRouter.put('/:id', RC.updateRiddleByIdController);
-riddleRouter.post('/', RC.createRiddleController);
-riddleRouter.post('/load-initial-riddles', RC.loadInitialRiddlesController)
-riddleRouter.delete('/:id', RC.deleteRiddleByIdController);
+riddleRouter.get('/', RC.getAllRiddles);
+riddleRouter.get('/riddleByLevel/:level', RC.getRiddlesByLevel);
+riddleRouter.put('/:id', RC.updateRiddleById);
+riddleRouter.post('/', RC.createRiddle);
+riddleRouter.post('/load-initial-riddles', RC.loadInitialRiddles)
+riddleRouter.delete('/:id', RC.deleteRiddleById);
 
 export default riddleRouter;
