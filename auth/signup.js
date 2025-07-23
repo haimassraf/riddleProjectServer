@@ -10,8 +10,8 @@ export async function signup(req, res) {
         const hashPassword = await bcrypt.hash(password, 12);
         const newUser = { name: name, password: hashPassword };
         const insertedUser = await createPlayerDal(newUser);
-        const token = jwt.sign({ id: insertedUser[0].id }, process.env.JWT_SECRET_KEY, { expiresIn: '5m' });
+        const token = jwt.sign({ id: insertedUser.id }, process.env.JWT_SECRET_KEY, { expiresIn: '5m' });
         res.cookie("token", token, { httpOnly: true, sameSite: true });
-        res.send(insertedUser);
+        res.send({ insertedUser, token });
     } catch (err) { res.status(500).send("Error: " + err.message) };
 }

@@ -5,7 +5,11 @@ export async function getPlayerByNameDal(name) {
         const supabase = connectToSupabase();
         const { data, error } = await supabase.from('players').select().eq('name', name);
         if (error) throw new Error(error.message);
-        return data;
+        if (data.length === 0) {
+            console.log(`Player ${name} Not Found`);
+            return;
+        }
+        return data[0];
     } catch (err) {
         console.log("Error with get player by name: ", err.message)
     }
@@ -13,9 +17,10 @@ export async function getPlayerByNameDal(name) {
 
 export async function getPlayerByIdDal(id) {
     try {
+        const supabase = connectToSupabase();
         const { data, error } = await supabase.from('players').select().eq('id', id);
         if (error) throw new Error(error.message);
-        return data;
+        return data[0];
     } catch (err) { console.log("Error with get player by id: ", err.message) }
 }
 
@@ -38,7 +43,7 @@ export async function createPlayerDal(newPlayer) {
             name: newPlayer.name, high_score: newPlayer.highScore, password: newPlayer.password
         }).select();
         if (error) throw new Error(error.message)
-        return data
+        return data[0];
     } catch (err) {
         return ("Error with create player: ", err.message)
     }
@@ -49,7 +54,7 @@ export async function updatePlayerDal(id, body) {
         const supabase = connectToSupabase();
         const { data, error } = await supabase.from('players').update(body).eq('id', id).select();
         if (error) throw new Error(error.message);
-        return data;
+        return data[0];
     } catch (err) {
         console.log("Error to update player: ", err.message)
     }
@@ -60,7 +65,7 @@ export async function deletePlayerDal(id) {
         const supabase = connectToSupabase();
         const { data, error } = await supabase.from('players').delete().eq('id', id).select();
         if (error) throw new Error(error.message);
-        return data;
+        return data[0];
     } catch (err) {
         console.log("Error with delete players: ", err.message);
     }

@@ -5,7 +5,7 @@ import { adminAuthMiddleware } from '../auth/adminAuthMiddleWare.js';
 
 const riddleRouter = express.Router();
 
-riddleRouter.get('/', authMiddleware, RC.getAllRiddles);
+riddleRouter.get('/', RC.getAllRiddles);
 riddleRouter.get('/riddleByLevel/:level', RC.getRiddlesByLevel);
 riddleRouter.put('/:id', adminAuthMiddleware, RC.updateRiddleById);
 riddleRouter.post('/', authMiddleware, RC.createRiddle);
