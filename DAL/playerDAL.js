@@ -11,6 +11,15 @@ export async function getPlayerByNameDal(name) {
     }
 }
 
+export async function getPlayerByIdDal(id) {
+    try {
+        const { data, error } = await supabase.from('players').select().eq('id', id);
+        if (error) throw new Error(error.message);
+        return data;
+    } catch (err) { console.log("Error with get player by id: ", err.message) }
+}
+
+
 export async function getAllPlayersDal() {
     try {
         const supabase = connectToSupabase();
@@ -25,7 +34,9 @@ export async function getAllPlayersDal() {
 export async function createPlayerDal(newPlayer) {
     try {
         const supabase = connectToSupabase();
-        const { data, error } = await supabase.from('players').insert({ name: newPlayer.name, high_score: newPlayer.highScore }).select();
+        const { data, error } = await supabase.from('players').insert({
+            name: newPlayer.name, high_score: newPlayer.highScore, password: newPlayer.password
+        }).select();
         if (error) throw new Error(error.message)
         return data
     } catch (err) {

@@ -1,4 +1,5 @@
 import { getAllPlayersDal, getPlayerByNameDal, createPlayerDal, updatePlayerDal, deletePlayerDal } from "../DAL/playerDAL.js";
+import bcrypt from 'bcrypt'
 
 export async function getPlayerByName(req, res) {
     try {
@@ -25,29 +26,13 @@ export async function getAllPlayers(req, res) {
     }
 }
 
-
-export async function createPlayer(req, res) {
-    try {
-        const body = req.body;
-        if (!body.name) {
-            throw new Error("new player has no name")
-        }
-        const data = await createPlayerDal(body);
-        if (data[0].id) {
-            res.send(data[0])
-        }
-        else {
-            res.send(data)
-        }
-    } catch (err) {
-        res.send(`Error to create player: ${err.message}`)
-    }
-}
-
 export async function updatePlayer(req, res) {
     try {
         const body = req.body;
         const id = parseInt(req.params.id);
+        if(body.password){
+            body.password = await bcrypt.hash(body.password, 12);
+        }
         const data = await updatePlayerDal(id, body);
         if (data[0].id) {
             res.send(data[0])
