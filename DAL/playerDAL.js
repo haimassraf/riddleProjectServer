@@ -56,7 +56,7 @@ export async function updatePlayerDal(id, body) {
         if (error) throw new Error(error.message);
         return data[0];
     } catch (err) {
-        console.log("Error to update player: ", err.message)
+        return ("Error to update player: ", err.message)
     }
 }
 

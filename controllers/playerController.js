@@ -44,8 +44,7 @@ export async function updatePlayer(req, res) {
             body.password = await bcrypt.hash(body.password, 12);
         }
         const data = await updatePlayerDal(id, body);
-        if (data) res.send(data);
-        res.send("Failed to Update Player")
+        res.send(data);
     } catch (err) {
         res.send("Error with update player (id must be a number): " + err.message)
     }
