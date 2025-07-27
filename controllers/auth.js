@@ -38,7 +38,7 @@ export async function login(req, res) {
         if (!user) return res.status(403).send("Wrong userName or password");
         const matchPassword = await bcrypt.compare(password, user.password);
         if (!matchPassword) return res.status(403).send("Wrong userName or password");
-        const token = jwt.sign({ id: user.id, rol: user.rol }, process.env.JWT_SECRET_KEY, { expiresIn: '1m' });
+        const token = jwt.sign({ id: user.id, rol: user.rol }, process.env.JWT_SECRET_KEY, { expiresIn: '5m' });
         res.cookie("token", token, { httpOnly: true, sameSite: true });
         res.json({ user, token });
     }
@@ -60,7 +60,7 @@ export async function signup(req, res) {
         const hashPassword = await bcrypt.hash(password, 12);
         const newUser = { name: name, password: hashPassword };
         const insertedUser = await createPlayerDal(newUser);
-        const token = jwt.sign({ id: insertedUser.id }, process.env.JWT_SECRET_KEY, { expiresIn: 'm' });
+        const token = jwt.sign({ id: insertedUser.id }, process.env.JWT_SECRET_KEY, { expiresIn: '5m' });
         res.cookie("token", token, { httpOnly: true, sameSite: true });
         res.send({ insertedUser, token });
     } catch (err) { res.status(500).send("Error: " + err.message) };
