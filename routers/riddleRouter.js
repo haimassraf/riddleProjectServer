@@ -1,6 +1,6 @@
 import express from 'express';
 import * as RC from '../controllers/riddleController.js';
-import { authMiddleware } from '../auth/authMiddleware.js';
+import { authMiddleware } from '../controllers/auth.js';
 
 const riddleRouter = express.Router();
 

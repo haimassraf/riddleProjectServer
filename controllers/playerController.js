@@ -1,4 +1,4 @@
-import { getAllPlayersDal, getPlayerByNameDal, updatePlayerDal, deletePlayerDal, getPlayerByIdDal } from "../DAL/playerDAL.js";
+import { getAllPlayersDal, getPlayerByNameDal, updatePlayerDal, deletePlayerDal, getPlayerByIdDal } from "../DB/playerDB.js";
 import bcrypt from 'bcrypt'
 
 export async function getPlayerByName(req, res) {

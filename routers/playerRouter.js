@@ -1,6 +1,6 @@
 import express from 'express';
 import * as PC from '../controllers/playerController.js';
-import { authMiddleware } from '../auth/authMiddleware.js';
+import { authMiddleware } from '../controllers/auth.js';
 
 const playerRouter = express.Router();
 

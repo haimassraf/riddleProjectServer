@@ -1,4 +1,4 @@
-import { getAll, insertData, getRiddlesByLevelDal, updateByIdDal, deleteByIdDal } from '../DAL/riddleDAL.js';
+import { getAll, insertData, getRiddlesByLevelDal, updateByIdDal, deleteByIdDal } from '../DB/riddleDB.js';
 
 export async function getAllRiddles(req, res) {
     try {
