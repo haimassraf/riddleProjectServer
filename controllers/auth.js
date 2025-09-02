@@ -6,9 +6,11 @@ import bcrypt from 'bcrypt';
 export const authMiddleware = (requiredRol = null) => {
     return async (req, res, next) => {
         try {
-            const authHeader = req.headers.authorization;
-            if (authHeader && authHeader.startsWith("Bearer ")) {
-                const token = authHeader.split(" ")[1];
+            const token = req.cookies?.token;
+            if (token) {
+                // const authHeader = req.headers.authorization;
+                // if (authHeader && authHeader.startsWith("Bearer ")) {
+                //     const token = authHeader.split(" ")[1];
                 const payload = jwt.verify(token, process.env.JWT_SECRET_KEY);
                 if (requiredRol && payload.rol !== requiredRol) {
                     return res.status(403).send("You dont have permission");
