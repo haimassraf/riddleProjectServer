@@ -5,9 +5,6 @@ export async function getPlayerByNameDal(name) {
         const supabase = connectToSupabase();
         const { data, error } = await supabase.from('players').select().eq('name', name);
         if (error) throw new Error(error.message);
-        if (data.length === 0) {
-            throw new Error(`Player '${name}' Not Found`);
-        }
         return data[0];
     } catch (err) {
         throw new Error(err.message);
