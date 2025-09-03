@@ -25,7 +25,7 @@ export const authMiddleware = (requiredRol = null) => {
             if (err.name === "TokenExpiredError") {
                 res.clearCookie("token");
                 res.status(401).send("Auto Logout. Please login again.");
-            } else { res.status(500).send("Error: " + err.message) }
+            } else { res.status(500).send(err.message) }
         };
     };
 };
@@ -44,7 +44,7 @@ export async function login(req, res) {
         res.cookie("token", token, { httpOnly: true, sameSite: true });
         res.json({ user, token });
     }
-    catch (err) { res.status(500).send("Error: " + err.message) };
+    catch (err) { res.status(500).send(err.message) };
 }
 
 
@@ -65,5 +65,5 @@ export async function signup(req, res) {
         const token = jwt.sign({ id: insertedUser.id }, process.env.JWT_SECRET_KEY, { expiresIn: '5m' });
         res.cookie("token", token, { httpOnly: true, sameSite: true });
         res.send({ insertedUser, token });
-    } catch (err) { res.status(500).send("Error: " + err.message) };
+    } catch (err) { res.status(500).send(err.message) };
 }

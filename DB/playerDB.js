@@ -6,12 +6,11 @@ export async function getPlayerByNameDal(name) {
         const { data, error } = await supabase.from('players').select().eq('name', name);
         if (error) throw new Error(error.message);
         if (data.length === 0) {
-            console.log(`Player ${name} Not Found`);
-            return;
+            throw new Error(`Player '${name}' Not Found`);
         }
         return data[0];
     } catch (err) {
-        console.log("Error with get player by name: ", err.message)
+        throw new Error(err.message);
     }
 }
 
@@ -20,10 +19,12 @@ export async function getPlayerByIdDal(id) {
         const supabase = connectToSupabase();
         const { data, error } = await supabase.from('players').select().eq('id', id);
         if (error) throw new Error(error.message);
+        if (!data || data.length === 0) throw new Error(`Player with id '${id}' Not Found`);
         return data[0];
-    } catch (err) { console.log("Error with get player by id: ", err.message) }
+    } catch (err) {
+        throw new Error(err.message);
+    }
 }
-
 
 export async function getAllPlayersDal() {
     try {
@@ -32,7 +33,7 @@ export async function getAllPlayersDal() {
         if (error) throw new Error(error.message);
         return data;
     } catch (err) {
-        console.log("Error with get all players: ", err.message)
+        throw new Error(err.message);
     }
 }
 
@@ -42,10 +43,10 @@ export async function createPlayerDal(newPlayer) {
         const { data, error } = await supabase.from('players').insert({
             name: newPlayer.name, high_score: newPlayer.highScore, password: newPlayer.password
         }).select();
-        if (error) throw new Error(error.message)
+        if (error) throw new Error(error.message);
         return data[0];
     } catch (err) {
-        return ("Error with create player: ", err.message)
+        throw new Error(err.message);
     }
 }
 
@@ -54,9 +55,10 @@ export async function updatePlayerDal(id, body) {
         const supabase = connectToSupabase();
         const { data, error } = await supabase.from('players').update(body).eq('id', id).select();
         if (error) throw new Error(error.message);
+        if (!data || data.length === 0) throw new Error(`Player with id ${id} Not Found`);
         return data[0];
     } catch (err) {
-        return ("Error to update player: ", err.message)
+        throw new Error(err.message);
     }
 }
 
@@ -65,8 +67,9 @@ export async function deletePlayerDal(id) {
         const supabase = connectToSupabase();
         const { data, error } = await supabase.from('players').delete().eq('id', id).select();
         if (error) throw new Error(error.message);
+        if (!data || data.length === 0) throw new Error(`Player with id ${id} Not Found`);
         return data[0];
     } catch (err) {
-        console.log("Error with delete players: ", err.message);
+        throw new Error(err.message);
     }
 }
